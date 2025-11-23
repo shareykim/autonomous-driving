@@ -2,33 +2,31 @@
 <package format="3">
   <name>raceline_generator</name>
   <version>0.0.1</version>
-  <description>Raceline generation nodes (path logger, cubic, bspline, catmullrom, clothoid)</description>
+  <description>Raceline generation nodes (Path logger, Cubic, Catmull-Rom, Clothoid, B-Spline)</description>
 
-  <maintainer email="you@example.com">misys</maintainer>
-  <license>Apache License 2.0</license>
+  <maintainer email="junsik@example.com">Junsik</maintainer>
+  <license>MIT</license>
 
-  <!-- Build dependencies -->
+  <!-- Build tools -->
   <buildtool_depend>ament_cmake</buildtool_depend>
-  <buildtool_depend>ament_python</buildtool_depend>
 
-  <!-- Runtime dependencies -->
-  <exec_depend>rclpy</exec_depend>
-  <exec_depend>std_msgs</exec_depend>
-  <exec_depend>geometry_msgs</exec_depend>
-  <exec_depend>nav_msgs</exec_depend>
-  <exec_depend>sensor_msgs</exec_depend>
-  <exec_depend>tf2_ros</exec_depend>
-  <exec_depend>tf_transformations</exec_depend>
+  <!-- Dependencies (build + exec) -->
+  <depend>rclcpp</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>tf2</depend>
+  <depend>tf2_ros</depend>
+  <depend>tf2_geometry_msgs</depend>
 
-  <!-- For launch files -->
+  <!-- Launch file support -->
   <exec_depend>launch</exec_depend>
   <exec_depend>launch_ros</exec_depend>
 
-  <!-- Needed for path building and testing -->
+  <!-- Testing (optional, safe to include) -->
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
 
   <export>
-    <build_type>ament_python</build_type>
+    <build_type>ament_cmake</build_type>
   </export>
 </package>

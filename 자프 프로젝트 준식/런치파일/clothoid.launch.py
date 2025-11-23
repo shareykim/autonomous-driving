@@ -5,9 +5,8 @@ def generate_launch_description():
     return LaunchDescription([
         Node(
             package='raceline_generator',
-            executable='path_logger',
-            name='path_logger',
+            executable='clothoid_node',
+            name='clothoid_raceline',
             output='screen',
-            parameters=[]
         )
     ])

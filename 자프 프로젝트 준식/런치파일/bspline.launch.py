@@ -5,8 +5,8 @@ def generate_launch_description():
     return LaunchDescription([
         Node(
             package='raceline_generator',
-            executable='catmullrom',
-            name='catmullrom_raceline',
+            executable='bspline_raceline_node',
+            name='bspline_raceline',
             output='screen',
         )
     ])

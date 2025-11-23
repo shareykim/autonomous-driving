@@ -5,8 +5,8 @@ def generate_launch_description():
     return LaunchDescription([
         Node(
             package='raceline_generator',
-            executable='clothoid',
-            name='clothoid_raceline',
+            executable='cubic_spline_node',
+            name='cubic_spline_raceline',
             output='screen',
         )
     ])

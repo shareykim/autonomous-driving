@@ -5,8 +5,8 @@ def generate_launch_description():
     return LaunchDescription([
         Node(
             package='raceline_generator',
-            executable='cubic_spline',
-            name='cubic_spline_raceline',
+            executable='path_logger_node',
+            name='path_logger',
             output='screen',
         )
     ])
