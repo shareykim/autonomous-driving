@@ -19,7 +19,7 @@ public:
             "/raw_path", 10,
             std::bind(&ClothoidRacelineNode::pathCallback, this, std::placeholders::_1));
 
-        pub_ = this->create_publisher<nav_msgs::msg::Path>("/raceline_clothoid", 10);
+        pub_ = this->create_publisher<nav_msgs::msg::Path>("/global_path", 10);
 
         output_csv_ = "/home/misys/shared_dir/raceline_clothoid.csv";
         std::filesystem::create_directories(std::filesystem::path(output_csv_).parent_path());
@@ -28,7 +28,7 @@ public:
     }
 
 private:
-    // heading ÃßÁ¤
+    // heading ï¿½ï¿½ï¿½ï¿½
     std::vector<double> estimateHeading(const std::vector<double>& xs,
         const std::vector<double>& ys)
     {
@@ -58,7 +58,7 @@ private:
             headings[i] = std::atan2(dy, dx);
         }
 
-        // np.unwrap °ú ºñ½ÁÇÏ°Ô angle unwrap
+        // np.unwrap ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ angle unwrap
         std::vector<double> unwrapped(n, 0.0);
         unwrapped[0] = headings[0];
         double two_pi = 2.0 * M_PI;
@@ -73,7 +73,7 @@ private:
         return unwrapped;
     }
 
-    // curvature ÃßÁ¤
+    // curvature ï¿½ï¿½ï¿½ï¿½
     std::vector<double> estimateCurvature(const std::vector<double>& xs,
         const std::vector<double>& ys,
         const std::vector<double>& headings)
@@ -96,7 +96,7 @@ private:
         return curv;
     }
 
-    // 1D ¼±Çüº¸°£ (np.interp ºñ½Á)
+    // 1D ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (np.interp ï¿½ï¿½ï¿½)
     std::vector<double> interp1d(const std::vector<double>& x,
         const std::vector<double>& y,
         const std::vector<double>& x_new)
@@ -137,7 +137,7 @@ private:
         return out;
     }
 
-    // clothoid-like path »ý¼º
+    // clothoid-like path ï¿½ï¿½ï¿½ï¿½
     void generateClothoidLike(const std::vector<double>& xs,
         const std::vector<double>& ys,
         std::vector<double>& xs_out,
@@ -161,17 +161,17 @@ private:
         auto headings = estimateHeading(xs, ys);
         auto curv = estimateCurvature(xs, ys, headings);
 
-        // s_new »ùÇÃ¸µ
+        // s_new ï¿½ï¿½ï¿½Ã¸ï¿½
         int num_samples = static_cast<int>(total_len / step) + 1;
         std::vector<double> s_new(num_samples, 0.0);
         for (int i = 0; i < num_samples; i++)
             s_new[i] = step * i;
 
-        // °î·ü º¸°£
+        // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         auto curv_interp = interp1d(s, curv, s_new);
-        // head_interp = np.interp(s_new, s, headings) ÀÌ ÀÖ¾úÁö¸¸ ½ÇÁ¦ ÀûºÐ¿£ »ç¿ë ¾È ÇÔ
+        // head_interp = np.interp(s_new, s, headings) ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ð¿ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½
 
-        // clothoid-like ÀûºÐ
+        // clothoid-like ï¿½ï¿½ï¿½ï¿½
         double x0 = xs[0];
         double y0 = ys[0];
         double theta = headings[0];
@@ -199,7 +199,7 @@ private:
         }
     }
 
-    // Path ÄÝ¹é
+    // Path ï¿½Ý¹ï¿½
     void pathCallback(const nav_msgs::msg::Path::SharedPtr msg)
     {
         if (generated_)

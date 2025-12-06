@@ -18,7 +18,7 @@ public:
             "/raw_path", 10,
             std::bind(&BSplineRacelineNode::pathCallback, this, std::placeholders::_1));
 
-        pub_ = this->create_publisher<nav_msgs::msg::Path>("/raceline_bspline", 10);
+        pub_ = this->create_publisher<nav_msgs::msg::Path>("/global_path", 10);
 
         output_csv_ = "/home/misys/shared_dir/raceline_bspline.csv";
         std::filesystem::create_directories(std::filesystem::path(output_csv_).parent_path());
@@ -193,7 +193,7 @@ private:
     }
 
     // ============================================================
-    // CSV ÀúÀå
+    // CSV ï¿½ï¿½ï¿½ï¿½
     // ============================================================
     void saveCSV(const std::vector<std::pair<double, double>>& pts)
     {
