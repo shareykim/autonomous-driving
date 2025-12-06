@@ -2,7 +2,7 @@
 <package format="3">
   <name>raceline_generator</name>
   <version>0.0.1</version>
-  <description>Raceline generation nodes (Path logger, Cubic, Catmull-Rom, Clothoid, B-Spline)</description>
+  <description>Raceline generation nodes (Path logger, Cubic, Catmull-Rom, Clothoid, B-Spline, Map-based centerline)</description>
 
   <maintainer email="junsik@example.com">Junsik</maintainer>
   <license>MIT</license>
@@ -10,19 +10,26 @@
   <!-- Build tools -->
   <buildtool_depend>ament_cmake</buildtool_depend>
 
-  <!-- Dependencies (build + exec) -->
+  <!-- Core dependencies -->
   <depend>rclcpp</depend>
+  <depend>std_msgs</depend>
   <depend>geometry_msgs</depend>
   <depend>nav_msgs</depend>
+
+  <!-- TF support -->
   <depend>tf2</depend>
   <depend>tf2_ros</depend>
   <depend>tf2_geometry_msgs</depend>
 
-  <!-- Launch file support -->
+  <!-- Map + Vision dependencies -->
+  <depend>OpenCV</depend>
+  <depend>yaml-cpp</depend>
+
+  <!-- Launch -->
   <exec_depend>launch</exec_depend>
   <exec_depend>launch_ros</exec_depend>
 
-  <!-- Testing (optional, safe to include) -->
+  <!-- Testing (optional) -->
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
 
@@ -30,4 +37,3 @@
     <build_type>ament_cmake</build_type>
   </export>
 </package>
-
