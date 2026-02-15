@@ -18,7 +18,7 @@ public:
             "/raw_path", 10,
             std::bind(&CubicSplineRacelineNode::pathCallback, this, std::placeholders::_1));
 
-        pub_ = this->create_publisher<nav_msgs::msg::Path>("/raceline_cubic", 10);
+        pub_ = this->create_publisher<nav_msgs::msg::Path>("/global_path", 10);
 
         output_csv_ = "/home/misys/shared_dir/raceline_cubic.csv";
         std::filesystem::create_directories(std::filesystem::path(output_csv_).parent_path());
@@ -28,7 +28,7 @@ public:
 
 private:
     // ============================
-    // 1D Natural Cubic Spline ±¸Çö
+    // 1D Natural Cubic Spline ï¿½ï¿½ï¿½ï¿½
     // ============================
     void computeSpline(
         const std::vector<double>& t,
@@ -74,11 +74,11 @@ private:
         }
 
         a = y;     // a[j] = y[j]
-        a.pop_back();  // ¸¶Áö¸· °ªÀº ÇÊ¿ä ¾øÀ½
-        c.pop_back();  // ¸¶Áö¸· c Á¦°Å
+        a.pop_back();  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ ï¿½ï¿½ï¿½ï¿½
+        c.pop_back();  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ c ï¿½ï¿½ï¿½ï¿½
     }
 
-    // Spline Æò°¡
+    // Spline ï¿½ï¿½
     std::vector<double> evalSpline(
         const std::vector<double>& t,
         const std::vector<double>& a,
@@ -95,7 +95,7 @@ private:
         {
             double tn = t_new[idx];
 
-            // ±¸°£ Ã£±â
+            // ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½
             int i = std::upper_bound(t.begin(), t.end(), tn) - t.begin() - 1;
             if (i < 0) i = 0;
             if (i >= n) i = n - 1;
@@ -120,7 +120,7 @@ private:
             return;
         }
 
-        // ¿øº» ÁÂÇ¥
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥
         std::vector<double> xs(N), ys(N);
         for (int i = 0; i < N; i++)
         {
@@ -128,7 +128,7 @@ private:
             ys[i] = msg->poses[i].pose.position.y;
         }
 
-        // °Å¸® ±â¹Ý ÆÄ¶ó¹ÌÅÍ s
+        // ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½ ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ s
         std::vector<double> s(N);
         s[0] = 0.0;
 
@@ -140,14 +140,14 @@ private:
         }
 
         double total_length = s.back();
-        double step = 0.05;  // 5cm »ùÇÃ¸µ
+        double step = 0.05;  // 5cm ï¿½ï¿½ï¿½Ã¸ï¿½
         int samples = total_length / step + 1;
 
         std::vector<double> s_new(samples);
         for (int i = 0; i < samples; i++)
             s_new[i] = step * i;
 
-        // Cubic Spline »ý¼º
+        // Cubic Spline ï¿½ï¿½ï¿½ï¿½
         std::vector<double> ax, bx, cx, dx;
         std::vector<double> ay, by, cy, dy;
 
@@ -157,7 +157,7 @@ private:
         std::vector<double> xs_new = evalSpline(s, ax, bx, cx, dx, s_new);
         std::vector<double> ys_new = evalSpline(s, ay, by, cy, dy, s_new);
 
-        // Path ¸Þ½ÃÁö »ý¼º
+        // Path ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         nav_msgs::msg::Path raceline;
         raceline.header = msg->header;
         raceline.header.frame_id = msg->header.frame_id;
@@ -181,7 +181,7 @@ private:
         generated_ = true;
     }
 
-    // CSV ÀúÀå
+    // CSV ï¿½ï¿½ï¿½ï¿½
     void saveCSV(const std::vector<double>& xs, const std::vector<double>& ys)
     {
         std::ofstream file(output_csv_);

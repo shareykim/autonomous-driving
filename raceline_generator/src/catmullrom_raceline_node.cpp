@@ -18,7 +18,7 @@ public:
             "/raw_path", 10,
             std::bind(&CatmullRomRacelineNode::pathCallback, this, std::placeholders::_1));
 
-        pub_ = this->create_publisher<nav_msgs::msg::Path>("/raceline_catmullrom", 10);
+        pub_ = this->create_publisher<nav_msgs::msg::Path>("/global_path", 10);
 
         output_csv_ = "/home/misys/shared_dir/raceline_catmullrom.csv";
         std::filesystem::create_directories(std::filesystem::path(output_csv_).parent_path());
@@ -35,7 +35,7 @@ private:
     {
         int n = pts.size();
         if (n < 4)
-            return pts; // ±×´ë·Î ¹ÝÈ¯
+            return pts; // ï¿½×´ï¿½ï¿½ ï¿½ï¿½È¯
 
         std::vector<std::pair<double, double>> out;
         out.reserve(n * num_per_seg);
@@ -70,7 +70,7 @@ private:
             }
         }
 
-        // ¸¶Áö¸· µÎ Á¡ Ãß°¡
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ß°ï¿½
         out.push_back(pts[n - 2]);
         out.push_back(pts[n - 1]);
 
@@ -105,7 +105,7 @@ private:
 
         auto cr_pts = catmullRom(pts, 10);
 
-        // Path ¸Þ½ÃÁö »ý¼º
+        // Path ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         nav_msgs::msg::Path raceline;
         raceline.header.frame_id = msg->header.frame_id;
         raceline.header.stamp = msg->header.stamp;
@@ -129,7 +129,7 @@ private:
     }
 
     // ===============================
-    // CSV ÀúÀå
+    // CSV ï¿½ï¿½ï¿½ï¿½
     // ===============================
     void saveCSV(const std::vector<std::pair<double, double>>& pts)
     {
